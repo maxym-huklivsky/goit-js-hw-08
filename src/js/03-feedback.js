@@ -31,9 +31,9 @@ function autocompleteInput() {
 
 function onSubmitForm(e) {
   e.preventDefault();
+
+  console.log(JSON.parse(localStorage.getItem(FORM_STORAGE)));
+
   localStorage.removeItem(FORM_STORAGE);
-
-  console.log(userInf);
-
   e.currentTarget.reset();
 }

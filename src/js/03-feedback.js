@@ -3,7 +3,8 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('.feedback-form');
 
 const FORM_STORAGE = 'feedback-form-state';
-const userInf = {};
+const autocomplete = localStorage.getItem(FORM_STORAGE);
+let userInf = autocomplete ? JSON.parse(autocomplete) : {};
 
 autocompleteInput();
 
@@ -32,8 +33,14 @@ function autocompleteInput() {
 function onSubmitForm(e) {
   e.preventDefault();
 
+  const formEls = e.currentTarget.elements;
+  if (formEls.email.value === '' || formEls.message.value === '') {
+    return alert(`Всі поля обов'язково повинні бути заповнені!`);
+  }
+
   console.log(JSON.parse(localStorage.getItem(FORM_STORAGE)));
 
   localStorage.removeItem(FORM_STORAGE);
+  userInf = {};
   e.currentTarget.reset();
 }
